@@ -7,11 +7,11 @@
         The 4th line contains a binary string of length . The character describes whether cell is blackened.
         A 0 corresponds to an empty cell and a 1 corresponds to blackened cell.
 
-        ex: 1
-            5
-            10011
-            00111
-
+        ex: 1                              1. 00 is valid
+            5                              2. 0
+            10011                             0 is valid
+            00111                          3.  0
+                                              0 is valid
         op: YES
         */
 
