@@ -1,49 +1,67 @@
+/* IMPORTANT: Multiple classes and nested static classes are supported */
+
 import java.io.*;
-import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
+import java.util.StringTokenizer;
 
-public class Solution {
+class Solution {
+    static class FastReader{
+        BufferedReader br;
+        StringTokenizer st;
 
-    public static void main(String[] args) {
-        //Scanner in = new Scanner(System.in);
-        //int len = in.nextInt();
-        //String s = in.next();
-        String s="beabeefeab";
-        countRepititions(s);
-
-    }
-    public static int countRepititions(String s){
-
-        Set<Character> sSet=new HashSet<Character>();
-        Set<Character> sTempSet=new HashSet<Character>();
-        Pattern p;
-        Matcher m;
-
-        int[] countOfMatches=new int[s.length()];
-        label1: for (int i=0; i<s.length();i++){      //beabeefeab
-            char c=s.charAt(i);
-            if (!sSet.contains(c)) {
-                sSet.add(c);
-                sTempSet.clear();  //clear the 2nd char array
-                for (int j=i+1; j<s.length(); j++){
-                    char tempChar=s.charAt(j);
-                    if (!sTempSet.contains(tempChar)){
-                        p=Pattern.compile("("+Pattern.quote(Character.toString(c))+")("+Pattern.quote(Character.toString(tempChar))+")(?:\\1|(?!(\1a-z)?(?!\2)?)*\\b)");
-                        m=p.matcher(s.substring(i));
-                        while (m.find()){
-                            System.out.print(m.group());
-                        }
-                        System.out.println();
-                    }
-                }
-                System.out.println("*****************************");
-            }
-
+        public FastReader(){
+            br = new BufferedReader(new
+                    InputStreamReader(System.in));
         }
-        for (int i=0; i< countOfMatches.length; i++)
-            System.out.println("%%$%%:"+i+" "+countOfMatches[i]);
-        return  0;
+        String next(){
+            while (st == null || !st.hasMoreElements()){
+                try{
+                    st = new StringTokenizer(br.readLine());
+                }
+                catch (IOException  e){
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        long nextLong(){
+            return Long.parseLong(next());
+        }
+
+        double nextDouble(){
+            return Double.parseDouble(next());
+        }
+
+        String nextLine(){
+            String str = "";
+            try{
+                str = br.readLine();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+            return str;
+        }
+    }
+    public static void main(String args[] ) throws Exception {
+        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in), 4098);
+        PrintWriter pw=new PrintWriter(System.out);
+        int n=Integer.parseInt(bufferedReader.readLine());
+        int[] aArray= new int[n];
+        for (int i = 1; i<=2; i++){
+            String[] tokens=bufferedReader.readLine().split(" ");
+            int j=0;
+            for (String e: tokens){
+                aArray[j]+=Integer.parseInt(e);
+                j++;
+            }
+        }
+        for (int e: aArray)
+            pw.print(e+" ");
+        pw.close();
     }
 }

@@ -16,13 +16,14 @@ public class RegexTwoCharArrayNoRepition {
         //int len = in.nextInt();
         //String s = in.next();
         String s="aabaebe";
+        Long ct=System.currentTimeMillis();
         char[][] allCharArray=buildCharCombinationArray(s);
-
+        System.out.println(System.currentTimeMillis()-ct);
     }
 
     private static char[][] buildCharCombinationArray(String s) {
 
-        char[][] comboCharArray = new char[325][3];
+        char[][] comboCharArray = new char[327][3];
         String aToZ = "abcdefghijklmnopqrstuvwxyz";
         int count = 0;
         int currentPosition=1, nextposition=1,x=0;
@@ -46,8 +47,21 @@ public class RegexTwoCharArrayNoRepition {
         return comboCharArray;
     }
     String countRepitition(String s,char[][] allCharArray){
+        Pattern p;
+        Matcher m;
         //for each pair memoize in the char array
+        for (int i=0; i<allCharArray.length; i++){
+            StringBuilder tempStrbuilder= new StringBuilder("");
+            for (int j=1; j<3; j++){
+                tempStrbuilder.append(allCharArray[i][j]);
+            }
+            p= Pattern.compile(tempStrbuilder.toString());
+            m= p.matcher(s);
+            while (m.find()) {
+                allCharArray[i][0]++;
+            }
 
+        }
         return "";
     }
 }

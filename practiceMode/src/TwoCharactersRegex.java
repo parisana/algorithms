@@ -1,10 +1,3 @@
-/*
-* given a string input eg: beabeefeab
-*find the longest possible t consisting of 2 distinct alternating characters
-* eg o/p: 5 for the string babab.
-* */
-
-
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -12,52 +5,63 @@ import java.math.*;
 import java.util.regex.*;
 
 public class TwoCharactersRegex {
-
+    private static int[][] intArray;
     public static void main(String[] args) {
-        //Scanner in = new Scanner(System.in);
-        //int len = in.nextInt();
-        //String s = in.next();
-        String s="beabeefeab";
-        countRepititions(s);
-
-    }
-    public static int countRepititions(String s){
-
-        Set<Character> sSet=new HashSet<Character>();
-        Set<Character> sTempSet=new HashSet<Character>();
-
-        int[] countOfMatches=new int[s.length()];
-        label1: for (int i=0; i<s.length();i++){      //beabeefeab
-            char c=s.charAt(i);
-            if (!sSet.contains(c)) {
-                sSet.add(c);
-                System.out.println(sSet);
-                for(int j=i+1; j<s.length(); j++){
-                    char c2=s.charAt(j);
-                    if(!sTempSet.contains(s.charAt(j))){
-                        sTempSet.add(c2);
-                        int countOfGroups=0;
-                        Pattern p=Pattern.compile("("+Pattern.quote(Character.toString(c))+")("+Pattern.quote(Character.toString(c2))+"|(?!\1a-z)*\\b)(?:(\\1(?!\1a-z)*\\b)?|(\\1(?!\1a-z)*\\2)*)");
-                        Matcher m=p.matcher(s);
-
-                        while (m.find()){
-                            System.out.print("\n##Start "+m.start()+" end: "+m.end()+" group0: "+m.group(0)+" groupcount: "+m.groupCount()+" **** ");
-                            countOfGroups=m.groupCount();
-                            if(m.end()==s.length()){
-                                continue label1;
-                            }
-                        }
-                        //countOfMatches[Character.valueOf(c)-97]=countOfGroups;
-                    }else{
-                        //set count of the combination to -1
-                    }
-                }
-                sTempSet.clear();
-            }
-
+        Scanner in = new Scanner(System.in);
+        int len = in.nextInt();
+        String s = in.next();
+        if (s.length()<=1)
+            System.out.println(0);
+        else {
+            int finalStringLength = countRepitions(s);
+            if (finalStringLength < 0)
+                finalStringLength = 0;
+            System.out.println(finalStringLength);
         }
-        for (int i=0; i< countOfMatches.length; i++)
-            System.out.println("%%$%%:"+i+" "+countOfMatches[i]);
-        return  0;
+    }
+    static int countRepitions(String s){
+        int[] finalArray=new int[26];
+        intArray=new int[26][26];
+        char[][] countArray= new char[26][26];
+        for (int i=0; i<s.length(); i++){
+            char temp=s.charAt(i);
+            int intValOfChar=(int)temp-97;
+            for (int j=0; j<26; j++){
+                if (countArray[intValOfChar][j]=='*') {
+                    continue;
+                }if (countArray[intValOfChar][j]==temp) {
+                    countArray[intValOfChar][j]='*';
+                    countArray[j][intValOfChar]='*';
+                    counter(intArray, intValOfChar, j, false);
+                    continue;
+                }
+                countArray[j][intValOfChar]=temp;
+                countArray[intValOfChar][j]=temp;
+                counter(intArray, intValOfChar, j, true);
+            }
+        }
+        for (int i=0; i<26;i++){
+            Arrays.sort(intArray[i]);
+        }
+        for (int j=0; j<26;j++){
+            //System.out.print(intArray[j][25]+"\t");
+            finalArray[j]=intArray[j][25];
+        }
+        Arrays.sort(finalArray);
+        //System.out.println(finalArray[25]);
+
+        return finalArray[25];
+    }
+
+    private static void counter(int[][] intArray, int row, int column, boolean flag) {
+        if (intArray[row][column]==-1)
+            return;
+        if(flag==true){
+            intArray[row][column]+=1;
+            intArray[column][row]+=1;
+        }else {
+            intArray[row][column] = -1;
+            intArray[column][row] = -1;
+        }
     }
 }
