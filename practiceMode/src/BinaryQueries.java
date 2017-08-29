@@ -1,8 +1,6 @@
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
-class Solution {
+class BinaryQueries {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -50,30 +48,57 @@ class Solution {
     }
 
     public static void main(String args[] ) throws Exception {
+        /*
+         * Read input from stdin and provide input before running
+         * Use either of these methods for input
+*/
+        //BufferedReader
+        /*BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String line = br.readLine();
+        int n = Integer.parseInt(line);*/
+        //Scanner
+        /*Scanner s = new Scanner(System.in);
+        int n = s.nextInt();*/
         Reader reader=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
-        int n=reader.nextInt();
-        Map<Integer, Integer> map=new HashMap<>();
-        int temp;
-        for (int i=0; i<n; i++){
-            temp=reader.nextInt();
-            if (!map.containsKey(temp))
-                map.put(temp, 1);
-            else {
-                Integer value = map.get(temp);
-                map.replace(temp, value, value+1);
-            }
+        int arraySize=reader.nextInt();
+        int testCases=reader.nextInt();
+        int[] aArray=new int[arraySize];
+        for (int i=0; i<arraySize;i++){
+            aArray[i]=reader.nextInt();
         }
-        int m=reader.nextInt();
-        while (m!=0){
+        int temp;
+        for (int i=0; i<testCases; i++){
             temp=reader.nextInt();
-            if (map.containsKey(temp))
-                pw.println(map.get(temp));
-            else
-                pw.println("NOT PRESENT");
-            m--;
+            if (temp==1){
+                int flipPosition=reader.nextInt();
+                aArray[flipPosition-1]^=1;
+            }else {
+                reader.nextInt();
+                if (aArray[reader.nextInt()-1]==0)
+                    pw.println("EVEN");
+                else
+                    pw.println("ODD");
+            }
+            pw.flush();
         }
         pw.flush();
+
+        /*BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in), 4098);
+        PrintWriter pw=new PrintWriter(System.out);
+        int n=Integer.parseInt(bufferedReader.readLine());
+        int[] aArray= new int[n];
+        for (int i = 1; i<=2; i++){
+            String[] tokens=bufferedReader.readLine().split(" ");
+            int j=0;
+            for (String e: tokens){
+                aArray[j]+=Integer.parseInt(e);
+                j++;
+            }
+        }
+        for (int e: aArray)
+            pw.print(e+" ");
+        pw.close();*/
     }
 }
 /*

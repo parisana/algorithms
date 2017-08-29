@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-class Solution {
+class MemorizeMe {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -77,5 +77,8 @@ class Solution {
     }
 }
 /*
-*
+*n=number of integers to be memorized.
+*A[i]= the integers to be memorized. i=1 to n.
+*m=number of test queries.
+*B[i]= the integer to be tested if present. i=1 to m.
 * */
