@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class Solution {
+class MostFrequent {
     public static void main(String args[] ) throws Exception {
         Scanner reader= new Scanner(new InputStreamReader(System.in));
         int n=reader.nextInt();
