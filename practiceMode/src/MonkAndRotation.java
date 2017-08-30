@@ -1,7 +1,10 @@
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-class Solution {
+class MonkAndRotation {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -68,33 +71,41 @@ class Solution {
     public static void main(String args[] ) throws Exception {
         Reader reader=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
-        byte n= (byte) reader.nextInt();
-        int count=0;
-        List<Byte> callingOrder=new ArrayList<>();
-        for (int i=0; i<n; i++) {
-            callingOrder.add((byte)reader.nextInt());
-        }
-        for (int i=0; i<n; i++){
-            Byte temp = callingOrder.remove(0);
-            byte currentInput= (byte) reader.nextInt();
-            if (temp==currentInput){
-                count++;
-                continue;
-            }else{
-                callingOrder.add(temp);
-                count++;
-                while ((temp=callingOrder.remove(0))!=currentInput){
-                    callingOrder.add(temp);
-                    count++;
-                }
-                count++;
+        byte t= (byte) reader.nextInt();
+        while(t!=0){
+            int n=reader.nextInt();
+            int k=reader.nextInt();
+            int[] finalArray=new int[n];
+            if (k>=n)
+                k=k%n;
+            for(int i=0; i<n; i++){
+                finalArray[i]=reader.nextInt();
             }
+            for (int i=n-k,j=0; j<n; i++,j++){
+                if (i>=n){
+                    i=i%n;
+                }
+                pw.print(finalArray[i]+" ");
+            }
+            pw.println();
+            t--;
         }
-        callingOrder.stream().forEach(System.out::print);
-        pw.print(count);
         pw.flush();
     }
-
+    /*static int[] rotateAndPrint(int n, int k,Reader reader) throws IOException {
+        int[] tempArray=new int[n-k];
+        int[] finalArray= new int[n];
+        for (int i=0; i<n; i++){
+            if (i>=n-k)
+                finalArray[i-n+k]=reader.nextInt();
+            else {
+                tempArray[i]=reader.nextInt();
+            }
+        }
+        for (int i=k, j=0; i<n; i++, j++)
+            finalArray[i]=tempArray[j];
+        return finalArray;
+    }*/
 }
 /*
 *

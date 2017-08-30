@@ -1,7 +1,8 @@
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-class Solution {
+class MonkAndLucky {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -68,33 +69,28 @@ class Solution {
     public static void main(String args[] ) throws Exception {
         Reader reader=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
-        byte n= (byte) reader.nextInt();
-        int count=0;
-        List<Byte> callingOrder=new ArrayList<>();
-        for (int i=0; i<n; i++) {
-            callingOrder.add((byte)reader.nextInt());
-        }
-        for (int i=0; i<n; i++){
-            Byte temp = callingOrder.remove(0);
-            byte currentInput= (byte) reader.nextInt();
-            if (temp==currentInput){
-                count++;
-                continue;
-            }else{
-                callingOrder.add(temp);
-                count++;
-                while ((temp=callingOrder.remove(0))!=currentInput){
-                    callingOrder.add(temp);
-                    count++;
+        byte t= (byte) reader.nextInt();
+        if (t==0|| t>10)
+            System.exit(0);
+        for (int i=0; i< t; i++) {
+            int n = reader.nextInt();
+            int count = 1;
+            long smallest=reader.nextLong();
+            long currentValue;
+            for (int j = 1; j < n; j++) {
+                currentValue=reader.nextLong();
+                if (currentValue>smallest){}
+                else if (currentValue<smallest) {
+                    smallest=currentValue;
+                    count = 1;
                 }
-                count++;
+                else if (currentValue==smallest)
+                    count++;
             }
+            pw.println(count%2==0?"Unlucky":"Lucky");
         }
-        callingOrder.stream().forEach(System.out::print);
-        pw.print(count);
         pw.flush();
     }
-
 }
 /*
 *

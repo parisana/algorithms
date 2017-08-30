@@ -1,7 +1,10 @@
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-class Solution {
+class MarkTheAnswer {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -68,34 +71,30 @@ class Solution {
     public static void main(String args[] ) throws Exception {
         Reader reader=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
-        byte n= (byte) reader.nextInt();
+        int t= reader.nextInt();
+        long x=reader.nextLong();
+        int skipCount=0;
         int count=0;
-        List<Byte> callingOrder=new ArrayList<>();
-        for (int i=0; i<n; i++) {
-            callingOrder.add((byte)reader.nextInt());
-        }
-        for (int i=0; i<n; i++){
-            Byte temp = callingOrder.remove(0);
-            byte currentInput= (byte) reader.nextInt();
-            if (temp==currentInput){
-                count++;
+        while(t!=0){
+            if (skipCount>1)
+                break;
+            long current=reader.nextLong();
+            if (current>x) {
+                skipCount++;
+                t--;
                 continue;
-            }else{
-                callingOrder.add(temp);
-                count++;
-                while ((temp=callingOrder.remove(0))!=currentInput){
-                    callingOrder.add(temp);
-                    count++;
-                }
-                count++;
             }
+            count++;
+            t--;
         }
-        callingOrder.stream().forEach(System.out::print);
         pw.print(count);
         pw.flush();
     }
 
 }
 /*
+*n x    n=number of answers; x=max diffulty he can solve
+*array[i]   i=1 to n; array[i]=difficulty of each question;
 *
+* OP: max number of questions he can solve without skipping more than 1 question.
 * */
