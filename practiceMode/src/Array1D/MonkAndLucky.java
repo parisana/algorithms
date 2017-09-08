@@ -1,7 +1,10 @@
-import java.io.*;
-import java.util.*;
+package Array1D;
 
-class Solution {
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+class MonkAndLucky {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -68,64 +71,29 @@ class Solution {
     public static void main(String args[] ) throws Exception {
         Reader reader=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
-        int t= reader.nextInt();
-        while (t>0) {
-            byte n= (byte) reader.nextInt();
-            pw.println(weightTheStones(n, reader));
-            t--;
+        byte t= (byte) reader.nextInt();
+        if (t==0|| t>10)
+            System.exit(0);
+        for (int i=0; i< t; i++) {
+            int n = reader.nextInt();
+            int count = 1;
+            long smallest=reader.nextLong();
+            long currentValue;
+            for (int j = 1; j < n; j++) {
+                currentValue=reader.nextLong();
+                if (currentValue>smallest){}
+                else if (currentValue<smallest) {
+                    smallest=currentValue;
+                    count = 1;
+                }
+                else if (currentValue==smallest)
+                    count++;
+            }
+            pw.println(count%2==0?"Unlucky":"Lucky");
         }
         pw.flush();
     }
-    private static String weightTheStones(byte n, Reader reader) throws IOException {
-        Map<Byte,Integer> mapA=new HashMap<>();
-        Map<Byte,Integer> mapB=new HashMap<>();
-        byte aHighest=0;
-        byte bHighest=0;
-        int aCount=0;
-        int bCount=0;
-        int aKey=0;
-        int bKey=0;
-        for (byte i=0; i<n;i++){
-            byte temp= (byte) reader.nextInt();
-            if (!mapA.containsKey(temp)){
-                mapA.put(temp,1);
-                if (temp>aHighest)
-                    aHighest=temp;
-            }else{
-                int value= mapA.get(temp);
-                mapA.replace(temp, value, ++value);
-                if (value>aCount|| (value>=aCount && temp>aKey) ) {
-                    aCount = value;
-                    aKey=temp;
-                }
-            }
-        }
-        for (byte i=0; i<n;i++){
-            byte temp= (byte) reader.nextInt();
-            if (!mapB.containsKey(temp)){
-                mapB.put(temp,1);
-                if (bHighest<temp)
-                    bHighest=temp;
-            }else{
-                int value= mapB.get(temp);
-                mapB.replace(temp, value, ++value);
-                if ((value>=bCount && temp>bKey) || value>bCount ) {
-                    bCount = value;
-                    bKey=temp;
-                }
-            }
-        }
-        if (aCount!=0){
-            aCount=aKey;
-        }else
-            aCount=aHighest;
-        if (bCount!=0)
-            bCount=bKey;
-        else bCount=bHighest;
-        if (aCount==bCount)
-            return "Tie";
-        else if (aCount>bCount)
-            return "Rupam";
-        else return "Ankit";
-    }
 }
+/*
+*
+* */

@@ -1,10 +1,9 @@
-import java.io.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+package Array1D;
 
-class MarkTheAnswer {
+import java.io.*;
+import java.util.*;
+
+class LastOccurence {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -67,34 +66,31 @@ class MarkTheAnswer {
             return ret;
         }
     }
-
+    static int MOD=(int)(1e9+7);
     public static void main(String args[] ) throws Exception {
-        Reader reader=new Reader();
-        PrintWriter pw=new PrintWriter(System.out);
-        int t= reader.nextInt();
-        long x=reader.nextLong();
-        int skipCount=0;
-        int count=0;
-        while(t!=0){
-            if (skipCount>1)
-                break;
-            long current=reader.nextLong();
-            if (current>x) {
-                skipCount++;
-                t--;
-                continue;
-            }
-            count++;
-            t--;
+        Reader reader = new Reader();
+        PrintWriter pw= new PrintWriter(System.out);
+        int t = reader.nextInt();
+        while (t-->0){
+            int n= reader.nextInt();
+            pw.println(myMethod(n, reader));
         }
-        pw.print(count);
-        pw.flush();
+        pw.close();
     }
-
+    public static String myMethod(int n, Reader reader) throws IOException {
+        int[] arr=new int[100001];
+        Arrays.fill(arr, -1);
+        StringBuilder answer=new StringBuilder();
+        for (int i=0; i<n; i++){
+            int temp=reader.nextInt();
+            arr[temp]=i+1;
+        }
+        int q=reader.nextInt();
+        //System.out.println("q: "+q);
+        while (q-->0){
+            int x=reader.nextInt();
+            answer.append((arr[x]==-1?-1:arr[x]) + "\n");
+        }
+        return String.valueOf(answer);
+    }
 }
-/*
-*n x    n=number of answers; x=max diffulty he can solve
-*array[i]   i=1 to n; array[i]=difficulty of each question;
-*
-* OP: max number of questions he can solve without skipping more than 1 question.
-* */

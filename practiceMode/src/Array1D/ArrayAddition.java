@@ -1,18 +1,33 @@
-import java.io.*;
+package Array1D;/* IMPORTANT: Multiple classes and nested static classes are supported */
 
-class BinaryQueries {
-    static class Reader {
+/*
+ * uncomment this if you want to read input.
+//imports for BufferedReader
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+//import for Scanner and other utility classes
+import java.util.*;
+*/
+import java.io.*;
+import java.util.Arrays;
+
+class ArrayAddition {
+    /*static class Reader
+    {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
         private byte[] buffer;
         private int bufferPointer, bytesRead;
 
-        public Reader() {
+        public Reader()
+        {
             din = new DataInputStream(System.in);
             buffer = new byte[BUFFER_SIZE];
             bufferPointer = bytesRead = 0;
         }
-        public int nextInt() throws IOException {
+        public int nextInt() throws IOException
+        {
             int ret = 0;
             byte c = read();
             while (c <= ' ')
@@ -20,7 +35,8 @@ class BinaryQueries {
             boolean neg = (c == '-');
             if (neg)
                 c = read();
-            do {
+            do
+            {
                 ret = ret * 10 + c - '0';
             }  while ((c = read()) >= '0' && c <= '9');
 
@@ -28,24 +44,27 @@ class BinaryQueries {
                 return -ret;
             return ret;
         }
-        private void fillBuffer() throws IOException {
+        private void fillBuffer() throws IOException
+        {
             bytesRead = din.read(buffer, bufferPointer = 0, BUFFER_SIZE);
             if (bytesRead == -1)
                 buffer[0] = -1;
         }
 
-        private byte read() throws IOException {
+        private byte read() throws IOException
+        {
             if (bufferPointer == bytesRead)
                 fillBuffer();
             return buffer[bufferPointer++];
         }
 
-        public void close() throws IOException {
+        public void close() throws IOException
+        {
             if (din == null)
                 return;
             din.close();
         }
-    }
+    }*/
 
     public static void main(String args[] ) throws Exception {
         /*
@@ -59,32 +78,23 @@ class BinaryQueries {
         //Scanner
         /*Scanner s = new Scanner(System.in);
         int n = s.nextInt();*/
-        Reader reader=new Reader();
+        /*Reader s=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
-        int arraySize=reader.nextInt();
-        int testCases=reader.nextInt();
-        int[] aArray=new int[arraySize];
-        for (int i=0; i<arraySize;i++){
-            aArray[i]=reader.nextInt();
-        }
-        int temp;
-        for (int i=0; i<testCases; i++){
-            temp=reader.nextInt();
-            if (temp==1){
-                int flipPosition=reader.nextInt();
-                aArray[flipPosition-1]^=1;
-            }else {
-                reader.nextInt();
-                if (aArray[reader.nextInt()-1]==0)
-                    pw.println("EVEN");
-                else
-                    pw.println("ODD");
+        int n=s.nextInt();
+        int[] aArray=new int[n];
+        for (int i=1; i<=2;i++){
+            for (int j=0; j<n; j++){
+                if (i==2){
+                    aArray[j]+=s.nextInt();
+                }else
+                    aArray[j]=s.nextInt();
             }
-            pw.flush();
         }
-        pw.flush();
+        for (int e: aArray)
+            pw.print(e+" ");
+        pw.flush();*/
 
-        /*BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in), 4098);
+        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in), 4098);
         PrintWriter pw=new PrintWriter(System.out);
         int n=Integer.parseInt(bufferedReader.readLine());
         int[] aArray= new int[n];
@@ -98,9 +108,6 @@ class BinaryQueries {
         }
         for (int e: aArray)
             pw.print(e+" ");
-        pw.close();*/
+        pw.close();
     }
 }
-/*
-*
-* */

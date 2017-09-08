@@ -1,8 +1,10 @@
+package Array1D;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-class Speed {
+class MemorizeMe {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -47,56 +49,38 @@ class Speed {
                 return;
             din.close();
         }
-
-        public long nextLong() throws IOException {
-            long ret = 0;
-            byte c = read();
-            while (c <= ' ')
-                c = read();
-            boolean neg = (c == '-');
-            if (neg)
-                c = read();
-            do {
-                ret = ret * 10 + c - '0';
-            }  while ((c = read()) >= '0' && c <= '9');
-
-            if (neg)
-                return -ret;
-            return ret;
-        }
     }
 
     public static void main(String args[] ) throws Exception {
         Reader reader=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
-        int t=reader.nextInt();
-        long speed;
-        for (int i=0; i< t; i++) {
-            int n = reader.nextInt();
-            int count = 0;
-            long highest=0L;
-            speed = 0L;
-            for (int j = 0; j < n; j++) {
-                speed = reader.nextLong();
-                if (j==0) {
-                    highest = speed;
-                    count++;
-                }
-                else
-                    //System.out.println(highest+":highest and speed["+j+"]: "+speed[j]);
-                    if (speed <= highest) {
-                        highest =speed;
-                        count++;
-                    }
+        int n=reader.nextInt();
+        Map<Integer, Integer> map=new HashMap<>();
+        int temp;
+        for (int i=0; i<n; i++){
+            temp=reader.nextInt();
+            if (!map.containsKey(temp))
+                map.put(temp, 1);
+            else {
+                Integer value = map.get(temp);
+                map.replace(temp, value, value+1);
             }
-            pw.println(count);
+        }
+        int m=reader.nextInt();
+        while (m!=0){
+            temp=reader.nextInt();
+            if (map.containsKey(temp))
+                pw.println(map.get(temp));
+            else
+                pw.println("NOT PRESENT");
+            m--;
         }
         pw.flush();
     }
 }
 /*
-*T=No.of test cases
-*for each test case T[i], take n= number of cars
-*   followed by the maxm speed of each cars in order
-*Find the number of cars that are at their maxm speed after they enter the straight lap
+*n=number of integers to be memorized.
+*A[i]= the integers to be memorized. i=1 to n.
+*m=number of test queries.
+*B[i]= the integer to be tested if present. i=1 to m.
 * */

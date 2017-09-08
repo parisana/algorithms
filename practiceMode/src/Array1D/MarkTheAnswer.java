@@ -1,7 +1,12 @@
-import java.io.*;
-import java.util.*;
+package Array1D;
 
-class Solution {
+import java.io.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+class MarkTheAnswer {
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
         private DataInputStream din;
@@ -69,63 +74,29 @@ class Solution {
         Reader reader=new Reader();
         PrintWriter pw=new PrintWriter(System.out);
         int t= reader.nextInt();
-        while (t>0) {
-            byte n= (byte) reader.nextInt();
-            pw.println(weightTheStones(n, reader));
+        long x=reader.nextLong();
+        int skipCount=0;
+        int count=0;
+        while(t!=0){
+            if (skipCount>1)
+                break;
+            long current=reader.nextLong();
+            if (current>x) {
+                skipCount++;
+                t--;
+                continue;
+            }
+            count++;
             t--;
         }
+        pw.print(count);
         pw.flush();
     }
-    private static String weightTheStones(byte n, Reader reader) throws IOException {
-        Map<Byte,Integer> mapA=new HashMap<>();
-        Map<Byte,Integer> mapB=new HashMap<>();
-        byte aHighest=0;
-        byte bHighest=0;
-        int aCount=0;
-        int bCount=0;
-        int aKey=0;
-        int bKey=0;
-        for (byte i=0; i<n;i++){
-            byte temp= (byte) reader.nextInt();
-            if (!mapA.containsKey(temp)){
-                mapA.put(temp,1);
-                if (temp>aHighest)
-                    aHighest=temp;
-            }else{
-                int value= mapA.get(temp);
-                mapA.replace(temp, value, ++value);
-                if (value>aCount|| (value>=aCount && temp>aKey) ) {
-                    aCount = value;
-                    aKey=temp;
-                }
-            }
-        }
-        for (byte i=0; i<n;i++){
-            byte temp= (byte) reader.nextInt();
-            if (!mapB.containsKey(temp)){
-                mapB.put(temp,1);
-                if (bHighest<temp)
-                    bHighest=temp;
-            }else{
-                int value= mapB.get(temp);
-                mapB.replace(temp, value, ++value);
-                if ((value>=bCount && temp>bKey) || value>bCount ) {
-                    bCount = value;
-                    bKey=temp;
-                }
-            }
-        }
-        if (aCount!=0){
-            aCount=aKey;
-        }else
-            aCount=aHighest;
-        if (bCount!=0)
-            bCount=bKey;
-        else bCount=bHighest;
-        if (aCount==bCount)
-            return "Tie";
-        else if (aCount>bCount)
-            return "Rupam";
-        else return "Ankit";
-    }
+
 }
+/*
+*n x    n=number of answers; x=max diffulty he can solve
+*array[i]   i=1 to n; array[i]=difficulty of each question;
+*
+* OP: max number of questions he can solve without skipping more than 1 question.
+* */

@@ -1,3 +1,5 @@
+package Array1D;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedList;
