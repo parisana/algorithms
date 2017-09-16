@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+//yet to solve
 
 class NoTwoVowelsTogether {
     static class Reader {
@@ -150,8 +151,10 @@ class NoTwoVowelsTogether {
             long factOfVowels=fact(consonantCount+1, (consonantCount+1-vowelCount)+1);
             System.out.println(factOfConsonants+"\t"+factOfVowels);
             long result= (factOfConsonants*factOfVowels)/repitionFact;
-            System.out.println(result);
+            System.out.println("result: "+result);
+            Math.sqrt(9);
             return;
+
         }
 
 

@@ -1,53 +1,41 @@
 package Array1D;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import org.w3c.dom.ls.LSOutput;
+
+import javax.management.openmbean.ArrayType;
+import java.io.IOException;
 import java.util.*;
 
-class Solution{
-    public static void main(String args[] ) throws Exception{
-        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
-        String s = br.readLine();
-        int t=Integer.parseInt(s);
+public class Solution{
+    public static void main(String[] args){
+        Scanner sc= new Scanner(System.in);
+        int t= sc.nextInt();
         while(t-->0){
-            s= br.readLine();
-            int n=Integer.parseInt(s);
-
-            int[] arrA = new int[n];
-            s = br.readLine();
-            String[] stringsArray = s.split(" ");
-            //System.out.println(stringsArray.length+"length");
-            for (int i=0; i<stringsArray.length; i++){
-                arrA[i]= Integer.parseInt(stringsArray[i]);
+            long n= sc.nextLong();
+            boolean nIsEven=((n-1)|0)==0?true:false;
+            long value=!nIsEven?n-1:(n-1)^(n-2);
+            int count=!nIsEven?2:0;
+            for (long i=1; i<n-1; i++){
+                for (long j=n-2; j>=0; j--){
+                    if (i==j-1)
+                        count++;
+                }
             }
-            int[] count= new int[n];
-            Arrays.fill(count, 1);
-            int[] output= new int[n];
-            System.out.println();
-            combination(arrA, count,0, output,0);
-        }
-
-    }
-
-    private static void combination(int[] arrA, int[] count, int pos, int[] output, int lengthOfOutput) {
-        //output(output,lengthOfOutput);
-        if (lengthOfOutput>0 && (lengthOfOutput&1)==0){
-            output(output,lengthOfOutput);
-        }
-        for (int i=pos; i<arrA.length; i++){
-            if (count[i]==0)
-                continue;
-            output[lengthOfOutput]=arrA[i];
-            //System.out.print(arrA[i]+" * ");
-            count[i]--;
-            combination(arrA, count,i,output,lengthOfOutput+1);
-            count[i]++;
+            displayXOR(24);
         }
     }
-    private static void output(int[] output, int len) {
-        for (int i=0; i<len;i++){
-            System.out.print(output[i]+" ");
-        }
+    public static void displayXOR(int n){
+        int arr[][] = new int[n][n];
+        System.out.print("\t");
+        for (int i=0; i<n; i++)
+            System.out.print(i+" ");
         System.out.println();
+        for (int i=0; i<n; i++){
+            System.out.printf("%3s",i+":  ");
+            for (int j=0; j<n; j++){
+                System.out.print((arr[i][j] = i ^ j)+" ");
+            }
+            System.out.println();
+        }
     }
 }

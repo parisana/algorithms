@@ -32,7 +32,7 @@ class SubarrayCombination{
 
     private static void combination(int[] arrA, int[] count, int pos, int[] output, int lengthOfOutput) {
         //output(output,lengthOfOutput);
-        if (lengthOfOutput>0 && (lengthOfOutput&1)==0){
+        if (lengthOfOutput>1){
             output(output,lengthOfOutput);
         }
         for (int i=pos; i<arrA.length; i++){
